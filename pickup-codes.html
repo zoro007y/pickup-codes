@@ -127,9 +127,9 @@ body.dark .btn-cleanup{background:#16213e}
 </div>
 <div id="listView">
   <div class="ocr-zone" onclick="document.getElementById('fileInput').click()">
-    <input type="file" id="fileInput" accept="image/*" onchange="handleFile(event)">
+    <input type="file" id="fileInput" accept="image/*" onchange="handleFile(event)" capture="environment">
     <div class="icon">📸</div>
-    <div class="text">点击上传截图自动识别取件码<br>或长按粘贴截图</div>
+    <div class="text">点击上传截图自动识别取件码<br>或长按粘贴截图<br><span style="font-size:12px;color:#FF69B4;margin-top:4px;display:block">📱 添加到桌面后建议用下方「粘贴识别」</span></div>
   </div>
   <div class="ocr-loading" id="ocrLoading"><div class="spinner"></div><div class="status" id="ocrStatus">加载中...</div></div>
   <div class="ocr-result" id="ocrResult"><div class="ocr-close" onclick="closeOcrResult()">✕</div><h3>🔍 识别到以下取件码：</h3><div id="ocrItems"></div></div>
@@ -203,7 +203,22 @@ body.dark .btn-cleanup{background:#16213e}
     </div>
     <textarea id="inputStations" rows="8" style="width:100%;padding:8px;border:1px solid #FFB6C1;border-radius:8px;font-size:11px;font-family:monospace;resize:vertical" placeholder="关键词=驿站名|地址|纬度,经度&#10;北门,美食广场=北门美食广场|地址|29.46,106.52"></textarea>
     <div style="font-size:11px;color:#BC8F8F;margin-top:-8px;margin-bottom:12px">格式：关键词=驿站名|地址|纬度,经度</div>
+    <button onclick="openBackup()" style="width:100%;padding:10px;border:1px dashed #FF69B4;border-radius:12px;font-size:14px;color:#FF69B4;background:#FFF0F5;cursor:pointer;margin-bottom:12px">📦 数据备份/恢复</button>
     <div class="modal-btns"><button class="btn-cancel" onclick="closeSettings()">取消</button><button class="btn-save" onclick="saveSettings()">保存</button></div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="backupModal">
+  <div class="modal">
+    <h2>📦 数据备份</h2>
+    <div style="margin-bottom:15px">
+      <button onclick="exportData()" style="width:100%;padding:12px;border:1px solid #FF69B4;border-radius:12px;font-size:14px;color:#FF69B4;background:#FFF0F5;cursor:pointer;margin-bottom:10px">📤 导出数据（复制到剪贴板）</button>
+      <div style="font-size:12px;color:#BC8F8F;margin-bottom:15px">复制后发给自己，换设备时粘贴导入</div>
+      <label>📥 导入数据</label>
+      <textarea id="importData" rows="4" style="width:100%;padding:8px;border:1px solid #FFB6C1;border-radius:8px;font-size:12px;font-family:monospace;resize:vertical" placeholder="粘贴之前导出的数据..."></textarea>
+      <button onclick="importData()" style="width:100%;padding:12px;border:none;border-radius:12px;font-size:14px;color:#fff;background:#FF69B4;cursor:pointer;margin-top:8px">📥 导入</button>
+    </div>
+    <div class="modal-btns"><button class="btn-cancel" onclick="closeBackup()">关闭</button></div>
   </div>
 </div>
 
@@ -351,6 +366,38 @@ function saveSettings(){
   closeSettings();alert('已保存');
 }
 function closeSettings(){document.getElementById('settingsModal').classList.remove('show')}
+
+function openBackup(){document.getElementById('importData').value='';document.getElementById('backupModal').classList.add('show')}
+function closeBackup(){document.getElementById('backupModal').classList.remove('show')}
+
+function exportData(){
+  const data=JSON.stringify({items:items,amapKey:amapKey,stations:localStorage.getItem('presetStations2')||''});
+  navigator.clipboard.writeText(data).then(()=>alert('数据已复制到剪贴板！发给自己保存')).catch(()=>{
+    const ta=document.createElement('textarea');ta.value=data;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);
+    alert('数据已复制！');
+  });
+}
+
+function importData(){
+  const text=document.getElementById('importData').value.trim();
+  if(!text)return alert('请先粘贴数据');
+  try{
+    const data=JSON.parse(text);
+    if(data.items){
+      if(confirm('导入会覆盖当前数据，确定？')){
+        items=data.items;
+        localStorage.setItem('pickupItems',JSON.stringify(items));
+        if(data.amapKey){amapKey=data.amapKey;localStorage.setItem('amapKey',amapKey);}
+        if(data.stations)localStorage.setItem('presetStations2',data.stations);
+        renderCards();closeBackup();alert('导入成功！共'+items.length+'条数据');
+      }
+    }else{
+      alert('数据格式不正确');
+    }
+  }catch(e){
+    alert('数据格式错误，请检查');
+  }
+}
 
 let presetPickMap=null;
 function pickPresetLocation(){
