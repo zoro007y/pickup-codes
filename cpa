@@ -1,0 +1,1194 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>CPA 2027 考试大纲 · 知识点全览</title>
+<style>
+:root {
+  --bg: #f2f2f7;
+  --card: #ffffff;
+  --text: #1c1c1e;
+  --text2: #636366;
+  --text3: #8e8e93;
+  --blue: #007aff;
+  --green: #34c759;
+  --orange: #ff9500;
+  --red: #ff3b30;
+  --purple: #af52de;
+  --teal: #5ac8fa;
+  --pink: #ff2d55;
+  --indigo: #5856d6;
+  --separator: rgba(60,60,67,0.12);
+  --card-radius: 12px;
+  --group-radius: 14px;
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { font-size:16px; -webkit-text-size-adjust:100%; scroll-behavior:smooth; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'SF Pro Display', 'Helvetica Neue', 'PingFang SC', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.47;
+  -webkit-font-smoothing: antialiased;
+  padding-bottom: calc(20px + var(--safe-bottom));
+}
+
+/* ─── Header ─── */
+.header {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(242,242,247,0.82);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px);
+  border-bottom: 0.5px solid var(--separator);
+  padding: 12px 16px 8px;
+}
+.header-top { display:flex; align-items:center; justify-content:space-between; margin-bottom:8px; }
+.header h1 { font-size:28px; font-weight:700; letter-spacing:-0.5px; }
+.header .subtitle { font-size:13px; color:var(--text3); margin-top:2px; }
+.header .badge-group { display:flex; gap:6px; flex-wrap:wrap; margin-top:8px; }
+.badge {
+  display:inline-flex; align-items:center; gap:4px;
+  font-size:11px; font-weight:600; padding:3px 8px;
+  border-radius:6px; line-height:1.4;
+}
+.badge.hot { background:rgba(255,59,48,0.12); color:var(--red); }
+.badge.new { background:rgba(0,122,255,0.12); color:var(--blue); }
+.badge.star { background:rgba(255,149,0,0.12); color:var(--orange); }
+
+/* ─── Search ─── */
+.search-bar {
+  position:relative; margin-top:10px;
+}
+.search-bar input {
+  width:100%; height:36px; border:none; border-radius:10px;
+  background:rgba(118,118,128,0.12); padding:0 12px 0 32px;
+  font-size:15px; color:var(--text); outline:none;
+  transition: background 0.2s;
+}
+.search-bar input::placeholder { color:var(--text3); }
+.search-bar svg { position:absolute; left:10px; top:50%; transform:translateY(-50%); color:var(--text3); }
+
+/* ─── Tab bar (subjects) ─── */
+.tabs-wrap {
+  overflow-x:auto; -webkit-overflow-scrolling:touch;
+  scrollbar-width:none; padding:12px 0 0;
+}
+.tabs-wrap::-webkit-scrollbar { display:none; }
+.tabs {
+  display:flex; gap:8px; padding:0 16px; min-width:max-content;
+}
+.tab-btn {
+  flex-shrink:0; padding:7px 14px; border-radius:20px;
+  font-size:14px; font-weight:500; border:none; cursor:pointer;
+  background:rgba(118,118,128,0.08); color:var(--text2);
+  transition:all 0.25s ease; white-space:nowrap;
+}
+.tab-btn.active { background:var(--blue); color:#fff; font-weight:600; }
+
+/* ─── Content ─── */
+.content { padding:12px 16px; }
+.subject-section { display:none; animation:fadeUp 0.3s ease; }
+.subject-section.active { display:block; }
+@keyframes fadeUp { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
+
+/* ─── Section header ─── */
+.section-header {
+  display:flex; align-items:center; gap:8px;
+  margin:16px 0 8px; padding:0 4px;
+}
+.section-icon {
+  width:32px; height:32px; border-radius:8px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:16px; color:#fff; flex-shrink:0;
+}
+.section-header h2 { font-size:20px; font-weight:700; }
+.section-header .count { font-size:12px; color:var(--text3); margin-left:auto; }
+
+/* ─── Knowledge cards ─── */
+.knowledge-group {
+  background:var(--card); border-radius:var(--group-radius);
+  overflow:hidden; margin-bottom:12px;
+  box-shadow:0 0.5px 0 rgba(0,0,0,0.04);
+}
+.knowledge-item {
+  display:flex; align-items:flex-start; gap:10px;
+  padding:12px 14px;
+  border-bottom:0.5px solid var(--separator);
+  cursor:pointer; transition:background 0.15s;
+}
+.knowledge-item:last-child { border-bottom:none; }
+.knowledge-item:active { background:rgba(0,0,0,0.03); }
+.knowledge-item.expanded { background:rgba(0,122,255,0.02); }
+
+.k-dot {
+  width:6px; height:6px; border-radius:50%;
+  background:var(--text3); margin-top:7px; flex-shrink:0;
+}
+.k-dot.hot { background:var(--red); }
+.k-dot.new { background:var(--blue); }
+
+.k-body { flex:1; min-width:0; }
+.k-title { font-size:15px; font-weight:500; display:flex; align-items:center; gap:6px; flex-wrap:wrap; }
+.k-title .tag {
+  font-size:10px; font-weight:600; padding:1px 5px;
+  border-radius:4px; vertical-align:middle; white-space:nowrap;
+}
+.k-title .tag.hot { background:rgba(255,59,48,0.1); color:var(--red); }
+.k-title .tag.new { background:rgba(0,122,255,0.1); color:var(--blue); }
+.k-title .tag.star { background:rgba(255,149,0,0.1); color:var(--orange); }
+.k-title .tag.hot::before { content:'🔥 '; }
+.k-title .tag.new::before { content:'✨ '; }
+.k-title .tag.star::before { content:'⭐ '; }
+
+.k-detail {
+  font-size:13px; color:var(--text2); margin-top:4px;
+  line-height:1.5; display:none;
+}
+.knowledge-item.expanded .k-detail { display:block; }
+.k-sub { padding:2px 0 2px 12px; border-left:2px solid var(--separator); margin-top:6px; }
+.k-sub p { font-size:13px; color:var(--text2); padding:2px 0; }
+
+.k-arrow {
+  color:var(--text3); font-size:12px; margin-top:4px;
+  transition:transform 0.2s; flex-shrink:0;
+}
+.knowledge-item.expanded .k-arrow { transform:rotate(90deg); }
+
+/* ─── Stats ─── */
+.stats-row {
+  display:grid; grid-template-columns:repeat(3,1fr); gap:8px;
+  margin-bottom:16px;
+}
+.stat-card {
+  background:var(--card); border-radius:var(--group-radius);
+  padding:12px; text-align:center;
+  box-shadow:0 0.5px 0 rgba(0,0,0,0.04);
+}
+.stat-card .num { font-size:24px; font-weight:700; }
+.stat-card .label { font-size:11px; color:var(--text3); margin-top:2px; }
+
+/* ─── Legend ─── */
+.legend {
+  display:flex; gap:12px; padding:8px 4px; flex-wrap:wrap;
+  margin-bottom:12px;
+}
+.legend-item { display:flex; align-items:center; gap:4px; font-size:12px; color:var(--text2); }
+.legend-dot { width:8px; height:8px; border-radius:50%; }
+
+/* ─── Quick links ─── */
+.quick-section { margin-bottom:16px; }
+.quick-section h3 { font-size:13px; color:var(--text3); font-weight:600; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:8px; padding:0 4px; }
+.quick-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:8px; }
+.quick-card {
+  background:var(--card); border-radius:var(--group-radius);
+  padding:14px; text-align:center; cursor:pointer;
+  transition:transform 0.15s, box-shadow 0.15s;
+  box-shadow:0 0.5px 0 rgba(0,0,0,0.04);
+}
+.quick-card:active { transform:scale(0.97); }
+.quick-card .icon { font-size:24px; margin-bottom:4px; }
+.quick-card .name { font-size:14px; font-weight:600; }
+.quick-card .desc { font-size:11px; color:var(--text3); margin-top:2px; }
+
+/* ─── Footer ─── */
+.footer {
+  text-align:center; padding:20px 16px; font-size:12px; color:var(--text3);
+}
+
+/* ─── Scroll to top ─── */
+.scroll-top {
+  position:fixed; bottom:24px; right:16px;
+  width:40px; height:40px; border-radius:50%;
+  background:rgba(255,255,255,0.9); border:none;
+  box-shadow:0 2px 12px rgba(0,0,0,0.12);
+  display:flex; align-items:center; justify-content:center;
+  cursor:pointer; opacity:0; transform:translateY(10px);
+  transition:all 0.3s; z-index:99;
+  -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px);
+}
+.scroll-top.show { opacity:1; transform:translateY(0); }
+.scroll-top:active { transform:scale(0.9); }
+
+/* ─── Search highlight ─── */
+mark { background:rgba(255,204,0,0.35); color:inherit; border-radius:2px; padding:0 1px; }
+
+/* ─── Print ─── */
+@media print {
+  .header, .tabs-wrap, .scroll-top, .search-bar { display:none !important; }
+  .subject-section { display:block !important; page-break-inside:avoid; }
+  body { background:#fff; }
+}
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="header" id="header">
+  <div class="header-top">
+    <div>
+      <h1>CPA 2027</h1>
+      <div class="subtitle">注册会计师全国统一考试 · 大纲知识点全览</div>
+    </div>
+  </div>
+  <div class="badge-group">
+    <span class="badge hot">🔥 常考重点</span>
+    <span class="badge new">✨ 新增知识点</span>
+    <span class="badge star">⭐ 核心考点</span>
+  </div>
+  <div class="search-bar">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    <input type="text" id="searchInput" placeholder="搜索知识点..." oninput="doSearch(this.value)">
+  </div>
+  <div class="tabs-wrap">
+    <div class="tabs" id="tabBar">
+      <button class="tab-btn active" onclick="switchTab('overview')">总览</button>
+      <button class="tab-btn" onclick="switchTab('accounting')">会计</button>
+      <button class="tab-btn" onclick="switchTab('audit')">审计</button>
+      <button class="tab-btn" onclick="switchTab('tax')">税法</button>
+      <button class="tab-btn" onclick="switchTab('law')">经济法</button>
+      <button class="tab-btn" onclick="switchTab('fm')">财务成本管理</button>
+      <button class="tab-btn" onclick="switchTab('strategy')">公司战略</button>
+      <button class="tab-btn" onclick="switchTab('comprehensive')">综合阶段</button>
+    </div>
+  </div>
+</div>
+
+<!-- Content -->
+<div class="content">
+
+<!-- ═══════════ 总览 ═══════════ -->
+<div class="subject-section active" id="sec-overview">
+  <div class="stats-row">
+    <div class="stat-card"><div class="num" style="color:var(--blue)">6</div><div class="label">专业阶段科目</div></div>
+    <div class="stat-card"><div class="num" style="color:var(--red)">186</div><div class="label">知识模块</div></div>
+    <div class="stat-card"><div class="num" style="color:var(--green)">5</div><div class="label">综合阶段卷</div></div>
+  </div>
+  <div class="legend">
+    <div class="legend-item"><div class="legend-dot" style="background:var(--red)"></div>常考重点</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--blue)"></div>2027新增/变动</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--orange)"></div>核心考点</div>
+  </div>
+  <div class="quick-section">
+    <h3>专业阶段 · 六科速览</h3>
+    <div class="quick-grid">
+      <div class="quick-card" onclick="switchTab('accounting')"><div class="icon">📒</div><div class="name">会计</div><div class="desc">30章 · 基础核心</div></div>
+      <div class="quick-card" onclick="switchTab('audit')"><div class="icon">🔍</div><div class="name">审计</div><div class="desc">23章 · 难度最高</div></div>
+      <div class="quick-card" onclick="switchTab('tax')"><div class="icon">💰</div><div class="name">税法</div><div class="desc">14章 · 细节繁多</div></div>
+      <div class="quick-card" onclick="switchTab('law')"><div class="icon">⚖️</div><div class="name">经济法</div><div class="desc">12章 · 记忆为主</div></div>
+      <div class="quick-card" onclick="switchTab('fm')"><div class="icon">📊</div><div class="name">财务成本管理</div><div class="desc">21章 · 公式密集</div></div>
+      <div class="quick-card" onclick="switchTab('strategy')"><div class="icon">🎯</div><div class="name">公司战略</div><div class="desc">7章 · 理解为主</div></div>
+    </div>
+  </div>
+  <div class="quick-section">
+    <h3>综合阶段</h3>
+    <div class="quick-grid">
+      <div class="quick-card" onclick="switchTab('comprehensive')"><div class="icon">📋</div><div class="name">试卷一</div><div class="desc">会计审计税法</div></div>
+      <div class="quick-card" onclick="switchTab('comprehensive')"><div class="icon">📋</div><div class="name">试卷二</div><div class="desc">财管战略经济法</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ 会计 ═══════════ -->
+<div class="subject-section" id="sec-accounting">
+  <div class="section-header">
+    <div class="section-icon" style="background:var(--blue)">📒</div>
+    <h2>会计</h2>
+    <span class="count">30章</span>
+  </div>
+
+  <div class="knowledge-group">
+    <div class="knowledge-item" onclick="toggleItem(this)">
+      <div class="k-dot hot"></div>
+      <div class="k-body">
+        <div class="k-title">第1章 总论 <span class="tag hot">常考</span></div>
+        <div class="k-detail"><div class="k-sub"><p>• 会计基本假设与会计基础</p><p>• 会计信息质量要求（可靠性、相关性、可理解性等8项）</p><p>• 会计要素及其确认与计量</p><p>• 会计计量属性（历史成本、重置成本、可变现净值、现值、公允价值）</p></div></div>
+      </div>
+      <div class="k-arrow">▶</div>
+    </div>
+    <div class="knowledge-item" onclick="toggleItem(this)">
+      <div class="k-dot hot"></div>
+      <div class="k-body">
+        <div class="k-title">第2章 会计政策、会计估计及其变更和差错更正 <span class="tag hot">常考</span></div>
+        <div class="k-detail"><div class="k-sub"><p>• 会计政策及其变更（追溯调整法）</p><p>• 会计估计及其变更（未来适用法）</p><p>• 前期差错更正（追溯重述法）</p></div></div>
+      </div>
+      <div class="k-arrow">▶</div>
+    </div>
+    <div class="knowledge-item" onclick="toggleItem(this)">
+      <div class="k-dot new"></div>
+      <div class="k-body">
+        <div class="k-title">第3章 存货 <span class="tag new">2027变动</span></div>
+        <div class="k-detail"><div class="k-sub"><p>• 存货的确认和初始计量</p><p>• 发出存货的计量（先进先出法、加权平均法等）</p><p>• 期末存货的计量（成本与可变现净值孰低）</p><p>• 存货的清查盘点</p><p class="mark-new">📌 2027新增：存货减值测试中关于可持续发展相关成本的处理</p></div></div>
+      </div>
+      <div class="k-arrow">▶</div>
+    </div>
+    <div class="knowledge-item" onclick="toggleItem(this)">
+      <div class="k-dot hot"></div>
+      <div class="k-body">
+        <div class="k-title">第4章 固定资产 <span class="tag star">核心</span></div>
+        <div class="k-detail"><div class="k-sub"><p>• 固定资产的确认和初始计量</p><p>• 固定资产的后续计量（折旧方法、后续支出）</p><p>• 固定资产的处置</p><p>• 固定资产的清查</p></div></div>
+      </div>
+      <div class="k-arrow">▶</div>
+    </div>
+    <div class="knowledge-item" onclick="toggleItem(this)">
+      <div class="k-dot"></div>
+      <div class="k-body">
+        <div class="k-title">第5章 无形资产</div>
+        <div class="k-detail"><div class="k-sub"><p>• 无形资产的确认和初始计量</p><p>• 内部研究开发费用的确认和计量</p><p>• 无形资产的后续计量</p><p>• 无形资产的处置和报废</p></div></div>
+      </div>
+      <div class="k-arrow">▶</div>
+    </div>
+    <div class="knowledge-item" onclick="toggleItem(this)">
+      <div class="k-dot"></div>
+      <div class="k-body">
+        <div class="k-title">第6章 投资性房地产</div>
+        <div class="k-detail"><div class="k-sub"><p>• 投资性房地产的确认和初始计量</p><p>• 投资性房地产的后续计量（成本模式与公允价值模式）</p><p>• 投资性房地产的转换和处置</p></div></div>
+      </div>
+      <div class="k-arrow">▶</div>
+    </div>
+    <div class="knowledge-item" onclick="toggleItem(this)">
+      <div class="k-dot hot"></div>
+      <div class="k-body">
+        <div class="k-title">第7章 长期股权投资与合营安排 <span class="tag star">核心</span><span class="tag hot">常考</span></div>
+        <div class="k-detail"><div class="k-sub"><p>• 长期股权投资的初始计量</p><p>• 长期股权投资的后续计量（成本法与权益法）</p><p>• 长期股权投资核算方法的转换</p><p>• 合营安排（共同经营与合营企业）</p></div></div>
+      </div>
+      <div class="k-arrow">▶</div>
+    </div>
+    <div class="knowledge-item" onclick="toggleItem(this)">
+      <div class="k-dot"></div>
+      <div class="k-body">
+        <div class="k-title">第8章 资产减值</div>
+        <div class="k-detail"><div class="k-sub"><p>• 资产减值概述</p><p>• 资产可收回金额的计量</p><p>• 资产减值损失的确认与计量</p><p>• 资产组的认定及减值处理</p></div></div>
+      </div>
+      <div class="k-arrow">▶</div>
+    </div>
+    <div class="knowledge-item" onclick="toggleItem(this)">
+      <div class="k-dot hot"></div>
+      <div class="k-body">
+        <div class="k-title">第9章 负债 <span class="tag hot">常考</span></div>
+        <div class="k-detail"><div class="k-sub"><p>• 流动负债（应付职工薪酬、应交税费等）</p><p>• 非流动负债（应付债券、长期借款等）</p><p>• 借款费用</p></div></div>
+      </div>
+      <div class="k-arrow">▶</div>
+    </div>
+    <div class="knowledge-item" onclick="toggleItem(this)">
+      <div class="k-dot hot"></div>
+      <div class="k-body">
+        <div class="k-title">第10章 职工薪酬 <span class="tag hot">常考</span><span class="tag new">2027变动</span></div>
+        <div class="k-detail"><div class="k-sub"><p>• 设定受益计划的会计处理</p><p>• 短期薪酬、离职后福利、辞退福利</p><p class="mark-new">📌 2027新增：离职后福利中关于养老金改革新规的衔接处理</p></div></div>
+      </div>
+      <div class="k-arrow">▶</div>
+    </div>
+    <div class="knowledge-item" onclick="toggleItem(this)">
+      <div class="k-dot"></div>
+      <div class="k-body">
+        <div class="k-title">第11章 借款费用</div>
+        <div class="k-detail"><div class="k-sub"><p>• 借款费用的确认</p><p>• 借款费用资本化金额的确定</p><p>• 借款费用资本化的暂停与停止</p></div></div>
+      </div>
+      <div class="k-arrow">▶</div>
+    </div>
+    <div class="knowledge-item" onclick="toggleItem(this)">
+      <div class="k-dot hot"></div>
+      <div class="k-body">
+        <div class="k-title">第12章 股份支付 <span class="tag star">核心</span></div>
+        <div class="k-detail"><div class="k-sub"><p>• 以权益结算的股份支付</p><p>• 以现金结算的股份支付</p><p>• 股份支付条件的修改与取消</p></div></div>
+      </div>
+      <div class="k-arrow">▶</div>
+    </div>
+    <div class="knowledge-item" onclick="toggleItem(this)">
+      <div class="k-dot hot"></div>
+      <div class="k-body">
+        <div class="k-title">第13章 或有事项 <span class="tag hot">常考</span></div>
+        <div class="k-detail"><div class="k-sub"><p>• 或有事项的确认和计量</p><p>• 或有事项会计的具体应用（预计负债、或有负债、或有资产）</p></div></div>
+      </div>
+      <div class="k-arrow">▶</div>
+    </div>
+    <div class="knowledge-item" onclick="toggleItem(this)">
+      <div class="k-dot hot"></div>
+      <div class="k-body">
+        <div class="k-title">第14章 金融工具 <span class="tag star">核心</span><span class="tag hot">常考</span></div>
+        <div class="k-detail"><div class="k-sub"><p>• 金融工具的分类（AC、FVOCI、FVTPL）</p><p>• 金融资产的重分类</p><p>• 金融负债的分类与计量</p><p>• 套期会计</p><p>• 金融工具的减值（ECL模型）</p></div></div>
+      </div>
+      <div class="k-arrow">▶</div>
+    </div>
+    <div class="knowledge-item" onclick="toggleItem(this)">
+      <div class="k-dot"></div>
+      <div class="k-body">
+        <div class="k-title">第15章 租赁</div>
+        <div class="k-detail"><div class="k-sub"><p>• 租赁的识别（控制权模型）</p><p>• 承租人的会计处理（使用权资产、租赁负债）</p><p>• 出租人的会计处理</p><p>• 售后租回交易</p></div></div>
+      </div>
+      <div class="k-arrow">▶</div>
+    </div>
+    <div class="knowledge-item" onclick="toggleItem(this)">
+      <div class="k-dot hot"></div>
+      <div class="k-body">
+        <div class="k-title">第16章 收入、费用和利润 <span class="tag star">核心</span><span class="tag hot">常考</span></div>
+        <div class="k-detail"><div class="k-sub"><p>• 收入确认五步法模型</p><p>• 合同成本（取得成本、履约成本）</p><p>• 特殊交易（附有销售退回、质保、主要责任人与代理人等）</p><p>• 利润的构成与分配</p></div></div>
+      </div>
+      <div class="k-arrow">▶</div>
+    </div>
+    <div class="knowledge-item" onclick="toggleItem(this)">
+      <div class="k-dot hot"></div>
+      <div class="k-body">
+        <div class="k-title">第17章 所得税 <span class="tag star">核心</span><span class="tag hot">常考</span></div>
+        <div class="k-detail"><div class="k-sub"><p>• 所得税会计的基本原理</p><p>• 暂时性差异（应纳税暂时性差异与可抵扣暂时性差异）</p><p>• 递延所得税资产和递延所得税负债的确认和计量</p><p>• 所得税费用的确认和计量</p></div></div>
+      </div>
+      <div class="k-arrow">▶</div>
+    </div>
+    <div class="knowledge-item" onclick="toggleItem(this)">
+      <div class="k-dot"></div>
+      <div class="k-body">
+        <div class="k-title">第18章 外币折算</div>
+        <div class="k-detail"><div class="k-sub"><p>• 记账本位币的确定</p><p>• 外币交易的会计处理</p><p>• 外币财务报表折算</p></div></div>
+      </div>
+      <div class="k-arrow">▶</div>
+    </div>
+    <div class="knowledge-item" onclick="toggleItem(this)">
+      <div class="k-dot hot"></div>
+      <div class="k-body">
+        <div class="k-title">第19章 资产负债表日后事项 <span class="tag hot">常考</span></div>
+        <div class="k-detail"><div class="k-sub"><p>• 资产负债表日后调整事项</p><p>• 资产负债表日后非调整事项</p></div></div>
+      </div>
+      <div class="k-arrow">▶</div>
+    </div>
+    <div class="knowledge-item" onclick="toggleItem(this)">
+      <div class="k-dot"></div>
+      <div class="k-body">
+        <div class="k-title">第20章 持有待售的非流动资产、处置组和终止经营</div>
+        <div class="k-detail"><div class="k-sub"><p>• 持有待售类别的分类条件</p><p>• 持有待售类别的计量</p><p>• 终止经营的列报</p></div></div>
+      </div>
+      <div class="k-arrow">▶</div>
+    </div>
+    <div class="knowledge-item" onclick="toggleItem(this)">
+      <div class="k-dot"></div>
+      <div class="k-body">
+        <div class="k-title">第21章 企业合并</div>
+        <div class="k-detail"><div class="k-sub"><p>• 同一控制下企业合并</p><p>• 非同一控制下企业合并</p><p>• 反向购买</p></div></div>
+      </div>
+      <div class="k-arrow">▶</div>
+    </div>
+    <div class="knowledge-item" onclick="toggleItem(this)">
+      <div class="k-dot hot"></div>
+      <div class="k-body">
+        <div class="k-title">第22章 合并财务报表 <span class="tag star">核心</span><span class="tag hot">常考</span></div>
+        <div class="k-detail"><div class="k-sub"><p>• 合并范围的确定</p><p>• 长期股权投资与所有者权益的抵销</p><p>• 内部交易的抵销（商品、固定资产、无形资产）</p><p>• 合并现金流量表</p></div></div>
+      </div>
+      <div class="k-arrow">▶</div>
+    </div>
+    <div class="knowledge-item" onclick="toggleItem(this)">
+      <div class="k-dot new"></div>
+      <div class="k-body">
+        <div class="k-title">第23章 每股收益 <span class="tag new">2027变动</span></div>
+        <div class="k-detail"><div class="k-sub"><p>• 基本每股收益</p><p>• 稀释每股收益</p><p class="mark-new">📌 2027新增：与可持续发展报告相关的每股收益信息披露要求</p></div></div>
+      </div>
+      <div class="k-arrow">▶</div>
+    </div>
+    <div class="knowledge-item" onclick="toggleItem(this)">
+      <div class="k-dot"></div>
+      <div class="k-body">
+        <div class="k-title">第24章 公允价值计量</div>
+        <div class="k-detail"><div class="k-sub"><p>• 公允价值层次（第一层次、第二层次、第三层次）</p><p>• 公允价值计量的具体应用</p></div></div>
+      </div>
+      <div class="k-arrow">▶</div>
+    </div>
+    <div class="knowledge-item" onclick="toggleItem(this)">
+      <div class="k-dot new"></div>
+      <div class="k-body">
+        <div class="k-title">第25章 政府及民间非营利组织会计 <span class="tag new">2027变动</span></div>
+        <div class="k-detail"><div class="k-sub"><p>• 政府会计准则体系</p><p>• 政府财务会计与预算会计的"双功能、双基础"</p><p>• 民间非营利组织会计</p><p class="mark-new">📌 2027新增：政府会计准则第11号文物资产相关会计处理</p></div></div>
+      </div>
+      <div class="k-arrow">▶</div>
+    </div>
+    <div class="knowledge-item" onclick="toggleItem(this)">
+      <div class="k-dot new"></div>
+      <div class="k-body">
+        <div class="k-title">第26章 企业合并与合并报表综合案例</div>
+        <div class="k-detail"><div class="k-sub"><p>• 复杂股权结构下的合并处理</p><p>• 交叉持股的合并处理</p></div></div>
+      </div>
+      <div class="k-arrow">▶</div>
+    </div>
+    <div class="knowledge-item" onclick="toggleItem(this)">
+      <div class="k-dot new"></div>
+      <div class="k-body">
+        <div class="k-title">第27章 会计估计变更与差错更正综合案例</div>
+        <div class="k-detail"><div class="k-sub"><p>• 会计估计变更对报表的影响</p><p>• 重大差错更正的追溯调整</p></div></div>
+      </div>
+      <div class="k-arrow">▶</div>
+    </div>
+    <div class="knowledge-item" onclick="toggleItem(this)">
+      <div class="k-dot"></div>
+      <div class="k-body">
+        <div class="k-title">第28章 关联方披露</div>
+        <div class="k-detail"><div class="k-sub"><p>• 关联方关系的认定</p><p>• 关联方交易的类型</p><p>• 关联方披露的要求</p></div></div>
+      </div>
+      <div class="k-arrow">▶</div>
+    </div>
+    <div class="knowledge-item" onclick="toggleItem(this)">
+      <div class="k-dot"></div>
+      <div class="k-body">
+        <div class="k-title">第29章 金融工具列报</div>
+        <div class="k-detail"><div class="k-sub"><p>• 金融工具列报的基本要求</p><p>• 金融工具对财务状况和经营成果影响的列报</p></div></div>
+      </div>
+      <div class="k-arrow">▶</div>
+    </div>
+    <div class="knowledge-item" onclick="toggleItem(this)">
+      <div class="k-dot new"></div>
+      <div class="k-body">
+        <div class="k-title">第30章 可持续发展相关信息披露 <span class="tag new">2027新增</span></div>
+        <div class="k-detail"><div class="k-sub"><p class="mark-new">📌 2027年新增章节</p><p>• 可持续发展报告的基本框架</p><p>• ESG相关信息的确认、计量和披露</p><p>• 气候相关财务信息披露（TCFD框架）</p><p>• 可持续发展对传统会计确认计量的影响</p></div></div>
+      </div>
+      <div class="k-arrow">▶</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ 审计 ═══════════ -->
+<div class="subject-section" id="sec-audit">
+  <div class="section-header">
+    <div class="section-icon" style="background:var(--orange)">🔍</div>
+    <h2>审计</h2>
+    <span class="count">23章</span>
+  </div>
+  <div class="knowledge-group">
+    <div class="knowledge-item" onclick="toggleItem(this)">
+      <div class="k-dot hot"></div>
+      <div class="k-body"><div class="k-title">第1章 审计概述 <span class="tag hot">常考</span></div>
+        <div class="k-detail"><div class="k-sub"><p>• 审计的定义与保证程度</p><p>• 注册会计师审计与政府审计、内部审计的区别</p><p>• 审计的目标（总体目标、具体审计目标）</p></div></div></div>
+      <div class="k-arrow">▶</div>
+    </div>
+    <div class="knowledge-item" onclick="toggleItem(this)">
+      <div class="k-dot hot"></div>
+      <div class="k-body"><div class="k-title">第2章 审计计划 <span class="tag star">核心</span></div>
+        <div class="k-detail"><div class="k-sub"><p>• 初步业务活动</p><p>• 总体审计策略和具体审计计划</p><p>• 重要性（实际执行的重要性、明显微小错报临界值）</p><p>• 审计过程中对计划的更改</p></div></div></div>
+      <div class="k-arrow">▶</div>
+    </div>
+    <div class="knowledge-item" onclick="toggleItem(this)">
+      <div class="k-dot hot"></div>
+      <div class="k-body"><div class="k-title">第3章 审计证据 <span class="tag star">核心</span><span class="tag hot">常考</span></div>
+        <div class="k-detail"><div class="k-sub"><p>• 审计证据的性质（充分性、适当性）</p><p>• 函证程序</p><p>• 分析程序</p><p>• 审计抽样</p></div></div></div>
+      <div class="k-arrow">▶</div>
+    </div>
+    <div class="knowledge-item" onclick="toggleItem(this)">
+      <div class="k-dot"></div>
+      <div class="k-body"><div class="k-title">第4章 审计抽样</div>
+        <div class="k-detail"><div class="k-sub"><p>• 统计抽样与非统计抽样</p><p>• 属性抽样与变量抽样</p><p>• 样本设计、选取和评价</p></div></div></div>
+      <div class="k-arrow">▶</div>
+    </div>
+    <div class="knowledge-item" onclick="toggleItem(this)">
+      <div class="k-dot hot"></div>
+      <div class="k-body"><div class="k-title">第5章 信息技术对审计的影响 <span class="tag hot">常考</span><span class="tag new">2027变动</span></div>
+        <div class="k-detail"><div class="k-sub"><p>• IT对审计的影响</p><p>• 信息系统审计</p><p>• 数据分析在审计中的运用</p><p class="mark-new">📌 2027新增：人工智能与机器学习在审计中的应用、自动化审计工具</p></div></div></div>
+      <div class="k-arrow">▶</div>
+    </div>
+    <div class="knowledge-item" onclick="toggleItem(this)">
+      <div class="k-dot"></div>
+      <div class="k-body"><div class="k-title">第6章 审计工作底稿</div>
+        <div class="k-detail"><div class="k-sub"><p>• 审计工作底稿的编制目的和要求</p><p>• 审计工作底稿的格式、要素和范围</p><p>• 审计工作底稿的归档</p></div></div></div>
+      <div class="k-arrow">▶</div>
+    </div>
+    <div class="knowledge-item" onclick="toggleItem(this)">
+      <div class="k-dot hot"></div>
+      <div class="k-body"><div class="k-title">第7章 风险评估 <span class="tag star">核心</span><span class="tag hot">常考</span></div>
+        <div class="k-detail"><div class="k-sub"><p>• 了解被审计单位及其环境</p><p>• 了解内部控制（控制环境、风险评估过程等）</p><p>• 识别和评估重大错报风险</p><p>• 特别风险</p></div></div></div>
+      <div class="k-arrow">▶</div>
+    </div>
+    <div class="knowledge-item" onclick="toggleItem(this)">
+      <div class="k-dot hot"></div>
+      <div class="k-body"><div class="k-title">第8章 风险应对 <span class="tag star">核心</span><span class="tag hot">常考</span></div>
+        <div class="k-detail"><div class="k-sub"><p>• 总体应对措施</p><p>• 进一步审计程序的性质、时间安排和范围</p><p>• 控制测试与实质性程序</p><p>• 评价审计证据的充分性和适当性</p></div></div></div>
+      <div class="k-arrow">▶</div>
+    </div>
+    <div class="knowledge-item" onclick="toggleItem(this)">
+      <div class="k-dot"></div>
+      <div class="k-body"><div class="k-title">第9章 销售与收款循环审计</div>
+        <div class="k-detail"><div class="k-sub"><p>• 销售与收款循环概述</p><p>• 控制测试与实质性程序</p><p>• 营业收入审计</p><p>• 应收账款审计</p></div></div></div>
+      <div class="k-arrow">▶</div>
+    </div>
+    <div class="knowledge-item" onclick="toggleItem(this)">
+      <div class="k-dot"></div>
+      <div class="k-body"><div class="k-title">第10章 采购与付款循环审计</div>
+        <div class="k-detail"><div class="k-sub"><p>• 采购与付款循环概述</p><p>• 控制测试与实质性程序</p><p>• 应付账款审计</p></div></div></div>
+      <div class="k-arrow">▶</div>
+    </div>
+    <div class="knowledge-item" onclick="toggleItem(this)">
+      <div class="k-dot"></div>
+      <div class="k-body"><div class="k-title">第11章 生产与存货循环审计</div>
+        <div class="k-detail"><div class="k-sub"><p>• 存货监盘</p><p>• 存货计价测试</p><p>• 成本审计</p></div></div></div>
+      <div class="k-arrow">▶</div>
+    </div>
+    <div class="knowledge-item" onclick="toggleItem(this)">
+      <div class="k-dot"></div>
+      <div class="k-body"><div class="k-title">第12章 货币资金审计</div>
+        <div class="k-detail"><div class="k-sub"><p>• 库存现金审计</p><p>• 银行存款审计</p><p>• 其他货币资金审计</p></div></div></div>
+      <div class="k-arrow">▶</div>
+    </div>
+    <div class="knowledge-item" onclick="toggleItem(this)">
+      <div class="k-dot hot"></div>
+      <div class="k-body"><div class="k-title">第13章 对舞弊和法律法规的考虑 <span class="tag hot">常考</span></div>
+        <div class="k-detail"><div class="k-sub"><p>• 财务报表审计中与舞弊相关的责任</p><p>• 财务报表审计中对法律法规的考虑</p><p>• 识别和评估舞弊风险</p><p>• 应对舞弊风险的措施</p></div></div></div>
+      <div class="k-arrow">▶</div>
+    </div>
+    <div class="knowledge-item" onclick="toggleItem(this)">
+      <div class="k-dot"></div>
+      <div class="k-body"><div class="k-title">第14章 审计沟通</div>
+        <div class="k-detail"><div class="k-sub"><p>• 注册会计师与治理层的沟通</p><p>• 沟通的事项、过程与形式</p></div></div></div>
+      <div class="k-arrow">▶</div>
+    </div>
+    <div class="knowledge-item" onclick="toggleItem(this)">
+      <div class="k-dot"></div>
+      <div class="k-body"><div class="k-title">第15章 注册会计师利用他人的工作</div>
+        <div class="k-detail"><div class="k-sub"><p>• 利用内部审计工作</p><p>• 利用专家的工作</p></div></div></div>
+      <div class="k-arrow">▶</div>
+    </div>
+    <div class="knowledge-item" onclick="toggleItem(this)">
+      <div class="k-dot hot"></div>
+      <div class="k-body"><div class="k-title">第16章 对集团财务报表审计的特殊考虑 <span class="tag star">核心</span><span class="tag hot">常考</span></div>
+        <div class="k-detail"><div class="k-sub"><p>• 集团审计概述</p><p>• 组成部分重要性</p><p>• 与组成部分注册会计师的沟通</p><p>• 评价审计证据的充分性和适当性</p></div></div></div>
+      <div class="k-arrow">▶</div>
+    </div>
+    <div class="knowledge-item" onclick="toggleItem(this)">
+      <div class="k-dot"></div>
+      <div class="k-body"><div class="k-title">第17章 其他特殊项目的审计</div>
+        <div class="k-detail"><div class="k-sub"><p>• 关联方的审计</p><p>• 持续经营假设的审计</p><p>• 首次接受委托时对期初余额的审计</p></div></div></div>
+      <div class="k-arrow">▶</div>
+    </div>
+    <div class="knowledge-item" onclick="toggleItem(this)">
+      <div class="k-dot hot"></div>
+      <div class="k-body"><div class="k-title">第18章 完成审计工作 <span class="tag hot">常考</span></div>
+        <div class="k-detail"><div class="k-sub"><p>• 期后事项</p><p>• 书面声明</p><p>• 评价审计证据</p></div></div></div>
+      <div class="k-arrow">▶</div>
+    </div>
+    <div class="knowledge-item" onclick="toggleItem(this)">
+      <div class="k-dot hot"></div>
+      <div class="k-body"><div class="k-title">第19章 审计报告 <span class="tag star">核心</span><span class="tag hot">常考</span></div>
+        <div class="k-detail"><div class="k-sub"><p>• 审计报告的基本要素</p><p>• 审计意见的类型（无保留、保留、否定、无法表示意见）</p><p>• 强调事项段与其他事项段</p><p>• 关键审计事项</p></div></div></div>
+      <div class="k-arrow">▶</div>
+    </div>
+    <div class="knowledge-item" onclick="toggleItem(this)">
+      <div class="k-dot"></div>
+      <div class="k-body"><div class="k-title">第20章 企业内部控制审计</div>
+        <div class="k-detail"><div class="k-sub"><p>• 内部控制审计概述</p><p>• 计划审计工作</p><p>• 实施审计工作</p><p>• 内部控制审计报告</p></div></div></div>
+      <div class="k-arrow">▶</div>
+    </div>
+    <div class="knowledge-item" onclick="toggleItem(this)">
+      <div class="k-dot"></div>
+      <div class="k-body"><div class="k-title">第21章 会计师事务所业务质量管理</div>
+        <div class="k-detail"><div class="k-sub"><p>• 会计师事务所质量管理体系</p><p>• 项目质量复核</p></div></div></div>
+      <div class="k-arrow">▶</div>
+    </div>
+    <div class="knowledge-item" onclick="toggleItem(this)">
+      <div class="k-dot"></div>
+      <div class="k-body"><div class="k-title">第22章 职业道德基本原则和概念框架</div>
+        <div class="k-detail"><div class="k-sub"><p>• 职业道德基本原则</p><p>• 职业道德概念框架</p><p>• 对职业道德基本原则产生不利影响的因素</p></div></div></div>
+      <div class="k-arrow">▶</div>
+    </div>
+    <div class="knowledge-item" onclick="toggleItem(this)">
+      <div class="k-dot new"></div>
+      <div class="k-body"><div class="k-title">第23章 审计中的数据分析与新兴技术 <span class="tag new">2027新增</span></div>
+        <div class="k-detail"><div class="k-sub"><p class="mark-new">📌 2027年新增章节</p><p>• 数据分析技术在审计中的应用</p><p>• 区块链技术对审计的影响</p><p>• 人工智能在风险评估中的应用</p><p>• 持续审计与实时审计</p></div></div></div>
+      <div class="k-arrow">▶</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ 税法 ═══════════ -->
+<div class="subject-section" id="sec-tax">
+  <div class="section-header">
+    <div class="section-icon" style="background:var(--green)">💰</div>
+    <h2>税法</h2>
+    <span class="count">14章</span>
+  </div>
+  <div class="knowledge-group">
+    <div class="knowledge-item" onclick="toggleItem(this)">
+      <div class="k-dot"></div>
+      <div class="k-body"><div class="k-title">第1章 税法总论</div>
+        <div class="k-detail"><div class="k-sub"><p>• 税法概念与税法原则</p><p>• 税法要素（纳税义务人、征税对象、税率等）</p><p>• 税收立法与税法体系</p></div></div></div>
+      <div class="k-arrow">▶</div>
+    </div>
+    <div class="knowledge-item" onclick="toggleItem(this)">
+      <div class="k-dot hot"></div>
+      <div class="k-body"><div class="k-title">第2章 增值税法 <span class="tag star">核心</span><span class="tag hot">常考</span></div>
+        <div class="k-detail"><div class="k-sub"><p>• 征税范围与纳税义务人</p><p>• 一般纳税人与小规模纳税人的划分</p><p>• 税率与征收率</p><p>• 一般计税方法与简易计税方法</p><p>• 进口货物增值税的征收</p><p>• 出口货物退（免）税</p><p>• 税收优惠与征收管理</p></div></div></div>
+      <div class="k-arrow">▶</div>
+    </div>
+    <div class="knowledge-item" onclick="toggleItem(this)">
+      <div class="k-dot hot"></div>
+      <div class="k-body"><div class="k-title">第3章 消费税法 <span class="tag hot">常考</span></div>
+        <div class="k-detail"><div class="k-sub"><p>• 纳税义务人与征税范围</p><p>• 税目与税率（从价、从量、复合计征）</p><p>• 应纳税额的计算</p><p>• 已纳消费税的扣除</p><p>• 出口退税</p></div></div></div>
+      <div class="k-arrow">▶</div>
+    </div>
+    <div class="knowledge-item" onclick="toggleItem(this)">
+      <div class="k-dot hot"></div>
+      <div class="k-body"><div class="k-title">第4章 企业所得税法 <span class="tag star">核心</span><span class="tag hot">常考</span><span class="tag new">2027变动</span></div>
+        <div class="k-detail"><div class="k-sub"><p>• 纳税义务人与征税范围</p><p>• 收入总额的确定</p><p>• 税前扣除项目及标准</p><p>• 资产的税务处理</p><p>• 资产损失的所得税处理</p><p>• 税收优惠（高新技术企业、研发费用加计扣除等）</p><p>• 境外所得税收抵免</p><p>• 特别纳税调整</p><p class="mark-new">📌 2027新增：ESG相关税收优惠政策、绿色低碳企业所得税优惠</p></div></div></div>
+      <div class="k-arrow">▶</div>
+    </div>
+    <div class="knowledge-item" onclick="toggleItem(this)">
+      <div class="k-dot hot"></div>
+      <div class="k-body"><div class="k-title">第5章 个人所得税法 <span class="tag star">核心</span><span class="tag hot">常考</span></div>
+        <div class="k-detail"><div class="k-sub"><p>• 纳税义务人（居民个人与非居民个人）</p><p>• 综合所得（工资薪金、劳务报酬、稿酬、特许权使用费）</p><p>• 经营所得</p><p>• 分类所得（利息股息红利、财产租赁、财产转让、偶然所得）</p><p>• 专项附加扣除</p><p>• 税收优惠</p></div></div></div>
+      <div class="k-arrow">▶</div>
+    </div>
+    <div class="knowledge-item" onclick="toggleItem(this)">
+      <div class="k-dot"></div>
+      <div class="k-body"><div class="k-title">第6章 城市维护建设税法和烟叶税法</div>
+        <div class="k-detail"><div class="k-sub"><p>• 城市维护建设税的纳税义务人、税率和计税依据</p><p>• 烟叶税法</p></div></div></div>
+      <div class="k-arrow">▶</div>
+    </div>
+    <div class="knowledge-item" onclick="toggleItem(this)">
+      <div class="k-dot"></div>
+      <div class="k-body"><div class="k-title">第7章 关税法和船舶吨税法</div>
+        <div class="k-detail"><div class="k-sub"><p>• 关税的完税价格</p><p>• 关税的减免</p><p>• 船舶吨税</p></div></div></div>
+      <div class="k-arrow">▶</div>
+    </div>
+    <div class="knowledge-item" onclick="toggleItem(this)">
+      <div class="k-dot"></div>
+      <div class="k-body"><div class="k-title">第8章 资源税法和环境保护税法</div>
+        <div class="k-detail"><div class="k-sub"><p>• 资源税的征税范围和税额</p><p>• 环境保护税的计税依据</p><p>• 税收优惠</p></div></div></div>
+      <div class="k-arrow">▶</div>
+    </div>
+    <div class="knowledge-item" onclick="toggleItem(this)">
+      <div class="k-dot"></div>
+      <div class="k-body"><div class="k-title">第9章 城镇土地使用税法和耕地占用税法</div>
+        <div class="k-detail"><div class="k-sub"><p>• 城镇土地使用税</p><p>• 耕地占用税</p></div></div></div>
+      <div class="k-arrow">▶</div>
+    </div>
+    <div class="knowledge-item" onclick="toggleItem(this)">
+      <div class="k-dot"></div>
+      <div class="k-body"><div class="k-title">第10章 房产税法、契税法和土地增值税法</div>
+        <div class="k-detail"><div class="k-sub"><p>• 房产税的计税依据</p><p>• 契税的征税范围</p><p>• 土地增值税的计算（扣除项目与增值额）</p></div></div></div>
+      <div class="k-arrow">▶</div>
+    </div>
+    <div class="knowledge-item" onclick="toggleItem(this)">
+      <div class="k-dot"></div>
+      <div class="k-body"><div class="k-title">第11章 车辆购置税法、车船税法和印花税法</div>
+        <div class="k-detail"><div class="k-sub"><p>• 车辆购置税</p><p>• 车船税</p><p>• 印花税</p></div></div></div>
+      <div class="k-arrow">▶</div>
+    </div>
+    <div class="knowledge-item" onclick="toggleItem(this)">
+      <div class="k-dot"></div>
+      <div class="k-body"><div class="k-title">第12章 国际税收税务管理实务</div>
+        <div class="k-detail"><div class="k-sub"><p>• 国际税收协定</p><p>• 非居民企业税收管理</p><p>• 国际避税与反避税</p><p>• 转让定价</p></div></div></div>
+      <div class="k-arrow">▶</div>
+    </div>
+    <div class="knowledge-item" onclick="toggleItem(this)">
+      <div class="k-dot hot"></div>
+      <div class="k-body"><div class="k-title">第13章 税收征收管理法 <span class="tag hot">常考</span></div>
+        <div class="k-detail"><div class="k-sub"><p>• 税务管理（税务登记、账簿凭证、纳税申报）</p><p>• 税款征收（征收方式、税收保全与强制执行）</p><p>• 税务行政法制</p></div></div></div>
+      <div class="k-arrow">▶</div>
+    </div>
+    <div class="knowledge-item" onclick="toggleItem(this)">
+      <div class="k-dot"></div>
+      <div class="k-body"><div class="k-title">第14章 税务行政法制</div>
+        <div class="k-detail"><div class="k-sub"><p>• 税务行政处罚</p><p>• 税务行政复议</p><p>• 税务行政诉讼</p></div></div></div>
+      <div class="k-arrow">▶</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ 经济法 ═══════════ -->
+<div class="subject-section" id="sec-law">
+  <div class="section-header">
+    <div class="section-icon" style="background:var(--purple)">⚖️</div>
+    <h2>经济法</h2>
+    <span class="count">12章</span>
+  </div>
+  <div class="knowledge-group">
+    <div class="knowledge-item" onclick="toggleItem(this)">
+      <div class="k-dot"></div>
+      <div class="k-body"><div class="k-title">第1章 法律基本原理</div>
+        <div class="k-detail"><div class="k-sub"><p>• 法律规范的种类</p><p>• 法律关系（主体、客体、内容）</p><p>• 法律行为与代理</p><p>• 诉讼时效与期间</p></div></div></div>
+      <div class="k-arrow">▶</div>
+    </div>
+    <div class="knowledge-item" onclick="toggleItem(this)">
+      <div class="k-dot hot"></div>
+      <div class="k-body"><div class="k-title">第2章 基本民事法律制度 <span class="tag hot">常考</span></div>
+        <div class="k-detail"><div class="k-sub"><p>• 民事法律行为的效力</p><p>• 代理制度</p><p>• 诉讼时效制度</p></div></div></div>
+      <div class="k-arrow">▶</div>
+    </div>
+    <div class="knowledge-item" onclick="toggleItem(this)">
+      <div class="k-dot hot"></div>
+      <div class="k-body"><div class="k-title">第3章 物权法律制度 <span class="tag star">核心</span><span class="tag hot">常考</span></div>
+        <div class="k-detail"><div class="k-sub"><p>• 物权变动（公示原则）</p><p>• 所有权</p><p>• 用益物权（建设用地使用权、土地承包经营权等）</p><p>• 担保物权（抵押权、质权、留置权）</p></div></div></div>
+      <div class="k-arrow">▶</div>
+    </div>
+    <div class="knowledge-item" onclick="toggleItem(this)">
+      <div class="k-dot hot"></div>
+      <div class="k-body"><div class="k-title">第4章 合同法律制度 <span class="tag star">核心</span><span class="tag hot">常考</span></div>
+        <div class="k-detail"><div class="k-sub"><p>• 合同的订立（要约与承诺）</p><p>• 合同的效力</p><p>• 合同的履行（抗辩权、代位权、撤销权）</p><p>• 合同的担保（保证、定金）</p><p>• 合同的变更、转让与终止</p><p>• 违约责任</p></div></div></div>
+      <div class="k-arrow">▶</div>
+    </div>
+    <div class="knowledge-item" onclick="toggleItem(this)">
+      <div class="k-dot hot"></div>
+      <div class="k-body"><div class="k-title">第5章 合伙企业法律制度 <span class="tag star">核心</span></div>
+        <div class="k-detail"><div class="k-sub"><p>• 普通合伙企业</p><p>• 有限合伙企业</p><p>• 合伙企业的入伙与退伙</p><p>• 合伙企业的解散与清算</p></div></div></div>
+      <div class="k-arrow">▶</div>
+    </div>
+    <div class="knowledge-item" onclick="toggleItem(this)">
+      <div class="k-dot hot"></div>
+      <div class="k-body"><div class="k-title">第6章 公司法律制度 <span class="tag star">核心</span><span class="tag hot">常考</span></div>
+        <div class="k-detail"><div class="k-sub"><p>• 公司的设立</p><p>• 股东出资制度</p><p>• 股东权利（知情权、利润分配请求权等）</p><p>• 公司治理（股东会、董事会、监事会）</p><p>• 公司的合并与分立</p><p>• 公司的解散与清算</p></div></div></div>
+      <div class="k-arrow">▶</div>
+    </div>
+    <div class="knowledge-item" onclick="toggleItem(this)">
+      <div class="k-dot hot"></div>
+      <div class="k-body"><div class="k-title">第7章 证券法律制度 <span class="tag star">核心</span><span class="tag hot">常考</span><span class="tag new">2027变动</span></div>
+        <div class="k-detail"><div class="k-sub"><p>• 证券发行（注册制改革）</p><p>• 证券交易</p><p>• 上市公司的收购</p><p>• 信息披露制度</p><p>• 内幕交易与操纵市场</p><p>• 证券欺诈的法律责任</p><p class="mark-new">📌 2027新增：全面注册制下的发行条件变化、ESG信息披露要求、特别代表人诉讼制度</p></div></div></div>
+      <div class="k-arrow">▶</div>
+    </div>
+    <div class="knowledge-item" onclick="toggleItem(this)">
+      <div class="k-dot"></div>
+      <div class="k-body"><div class="k-title">第8章 企业破产法律制度</div>
+        <div class="k-detail"><div class="k-sub"><p>• 破产原因与破产申请</p><p>• 管理人制度</p><p>• 债务人财产（撤销权、取回权、别除权）</p><p>• 债权申报与债权人会议</p><p>• 重整与和解</p><p>• 破产清算</p></div></div></div>
+      <div class="k-arrow">▶</div>
+    </div>
+    <div class="knowledge-item" onclick="toggleItem(this)">
+      <div class="k-dot"></div>
+      <div class="k-body"><div class="k-title">第9章 票据与支付结算法律制度</div>
+        <div class="k-detail"><div class="k-sub"><p>• 票据法基本原理</p><p>• 汇票、本票与支票</p><p>• 票据行为与票据权利</p><p>• 支付结算</p></div></div></div>
+      <div class="k-arrow">▶</div>
+    </div>
+    <div class="knowledge-item" onclick="toggleItem(this)">
+      <div class="k-dot"></div>
+      <div class="k-body"><div class="k-title">第10章 企业国有资产法律制度</div>
+        <div class="k-detail"><div class="k-sub"><p>• 企业国有资产的管理体制</p><p>• 国家出资企业管理者的选择与考核</p><p>• 企业国有资产交易</p></div></div></div>
+      <div class="k-arrow">▶</div>
+    </div>
+    <div class="knowledge-item" onclick="toggleItem(this)">
+      <div class="k-dot"></div>
+      <div class="k-body"><div class="k-title">第11章 反垄断法律制度</div>
+        <div class="k-detail"><div class="k-sub"><p>• 垄断协议</p><p>• 滥用市场支配地位</p><p>• 经营者集中</p><p>• 滥用行政权力排除、限制竞争</p></div></div></div>
+      <div class="k-arrow">▶</div>
+    </div>
+    <div class="knowledge-item" onclick="toggleItem(this)">
+      <div class="k-dot new"></div>
+      <div class="k-body"><div class="k-title">第12章 涉外经济法律制度 <span class="tag new">2027变动</span></div>
+        <div class="k-detail"><div class="k-sub"><p>• 外商投资法律制度</p><p>• 外汇管理法律制度</p><p>• 对外贸易法律制度</p><p class="mark-new">📌 2027新增：数据出境安全评估、跨境数据流动新规</p></div></div></div>
+      <div class="k-arrow">▶</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ 财务成本管理 ═══════════ -->
+<div class="subject-section" id="sec-fm">
+  <div class="section-header">
+    <div class="section-icon" style="background:var(--teal)">📊</div>
+    <h2>财务成本管理</h2>
+    <span class="count">21章</span>
+  </div>
+  <div class="knowledge-group">
+    <div class="knowledge-item" onclick="toggleItem(this)">
+      <div class="k-dot"></div>
+      <div class="k-body"><div class="k-title">第1章 财务管理基本原理</div>
+        <div class="k-detail"><div class="k-sub"><p>• 企业组织形式与财务管理目标</p><p>• 金融市场与金融工具</p><p>• 财务管理的基本理论</p></div></div></div>
+      <div class="k-arrow">▶</div>
+    </div>
+    <div class="knowledge-item" onclick="toggleItem(this)">
+      <div class="k-dot hot"></div>
+      <div class="k-body"><div class="k-title">第2章 财务报表分析和财务预测 <span class="tag star">核心</span><span class="tag hot">常考</span></div>
+        <div class="k-detail"><div class="k-sub"><p>• 财务比率分析（偿债能力、营运能力、盈利能力、市价比率）</p><p>• 管理用财务报表</p><p>• 杜邦分析体系</p><p>• 管理用财务分析体系</p><p>• 外部融资需求</p><p>• 内含增长率与可持续增长率</p></div></div></div>
+      <div class="k-arrow">▶</div>
+    </div>
+    <div class="knowledge-item" onclick="toggleItem(this)">
+      <div class="k-dot hot"></div>
+      <div class="k-body"><div class="k-title">第3章 价值评估基础 <span class="tag star">核心</span><span class="tag hot">常考</span></div>
+        <div class="k-detail"><div class="k-sub"><p>• 利率（基准利率、市场利率、期限结构）</p><p>• 货币时间价值</p><p>• 风险与报酬（资本资产定价模型、β系数）</p></div></div></div>
+      <div class="k-arrow">▶</div>
+    </div>
+    <div class="knowledge-item" onclick="toggleItem(this)">
+      <div class="k-dot hot"></div>
+      <div class="k-body"><div class="k-title">第4章 资本成本 <span class="tag star">核心</span><span class="tag hot">常考</span></div>
+        <div class="k-detail"><div class="k-sub"><p>• 债务资本成本的估计</p><p>• 股权资本成本的估计（CAPM、股利增长模型）</p><p>• 加权平均资本成本</p></div></div></div>
+      <div class="k-arrow">▶</div>
+    </div>
+    <div class="knowledge-item" onclick="toggleItem(this)">
+      <div class="k-dot hot"></div>
+      <div class="k-body"><div class="k-title">第5章 投资项目资本预算 <span class="tag star">核心</span><span class="tag hot">常考</span></div>
+        <div class="k-detail"><div class="k-sub"><p>• 净现值法</p><p>• 内含报酬率法</p><p>• 回收期法</p><p>• 项目现金流的估计</p><p>• 项目风险分析（敏感性分析、情景分析）</p></div></div></div>
+      <div class="k-arrow">▶</div>
+    </div>
+    <div class="knowledge-item" onclick="toggleItem(this)">
+      <div class="k-dot hot"></div>
+      <div class="k-body"><div class="k-title">第6章 债券、股票价值评估 <span class="tag hot">常考</span></div>
+        <div class="k-detail"><div class="k-sub"><p>• 债券价值评估</p><p>• 普通股价值评估</p><p>• 优先股价值评估</p></div></div></div>
+      <div class="k-arrow">▶</div>
+    </div>
+    <div class="knowledge-item" onclick="toggleItem(this)">
+      <div class="k-dot hot"></div>
+      <div class="k-body"><div class="k-title">第7章 期权价值评估 <span class="tag star">核心</span><span class="tag hot">常考</span></div>
+        <div class="k-detail"><div class="k-sub"><p>• 期权的概念与类型</p><p>• 期权的到期日价值</p><p>• 期权价值评估方法（BS模型、二叉树模型）</p><p>• 影响期权价值的因素</p></div></div></div>
+      <div class="k-arrow">▶</div>
+    </div>
+    <div class="knowledge-item" onclick="toggleItem(this)">
+      <div class="k-dot hot"></div>
+      <div class="k-body"><div class="k-title">第8章 企业价值评估 <span class="tag star">核心</span></div>
+        <div class="k-detail"><div class="k-sub"><p>• 现金流量折现法（FCFF、FCFE）</p><p>• 相对价值法（市盈率、市净率、市销率）</p></div></div></div>
+      <div class="k-arrow">▶</div>
+    </div>
+    <div class="knowledge-item" onclick="toggleItem(this)">
+      <div class="k-dot hot"></div>
+      <div class="k-body"><div class="k-title">第9章 资本结构 <span class="tag star">核心</span><span class="tag hot">常考</span></div>
+        <div class="k-detail"><div class="k-sub"><p>• 资本结构理论（MM理论、权衡理论、优序融资理论）</p><p>• 杠杆系数（DOL、DFL、DTL）</p><p>• 资本结构决策分析</p></div></div></div>
+      <div class="k-arrow">▶</div>
+    </div>
+    <div class="knowledge-item" onclick="toggleItem(this)">
+      <div class="k-dot"></div>
+      <div class="k-body"><div class="k-title">第10章 长期筹资</div>
+        <div class="k-detail"><div class="k-sub"><p>• 普通股筹资</p><p>• 长期债务筹资</p><p>• 租赁筹资</p><p>• 可转换债券与认股权证筹资</p></div></div></div>
+      <div class="k-arrow">▶</div>
+    </div>
+    <div class="knowledge-item" onclick="toggleItem(this)">
+      <div class="k-dot hot"></div>
+      <div class="k-body"><div class="k-title">第11章 股利分配、股票分割与股票回购 <span class="tag hot">常考</span></div>
+        <div class="k-detail"><div class="k-sub"><p>• 股利理论</p><p>• 股利政策</p><p>• 股票股利、股票分割与股票回购</p></div></div></div>
+      <div class="k-arrow">▶</div>
+    </div>
+    <div class="knowledge-item" onclick="toggleItem(this)">
+      <div class="k-dot"></div>
+      <div class="k-body"><div class="k-title">第12章 营运资本管理</div>
+        <div class="k-detail"><div class="k-sub"><p>• 现金管理</p><p>• 应收账款管理（信用政策）</p><p>• 存货管理</p><p>• 短期债务管理</p></div></div></div>
+      <div class="k-arrow">▶</div>
+    </div>
+    <div class="knowledge-item" onclick="toggleItem(this)">
+      <div class="k-dot hot"></div>
+      <div class="k-body"><div class="k-title">第13章 产品成本计算 <span class="tag star">核心</span></div>
+        <div class="k-detail"><div class="k-sub"><p>• 品种法、分批法、分步法</p><p>• 联产品和副产品的成本分配</p></div></div></div>
+      <div class="k-arrow">▶</div>
+    </div>
+    <div class="knowledge-item" onclick="toggleItem(this)">
+      <div class="k-dot"></div>
+      <div class="k-body"><div class="k-title">第14章 标准成本法</div>
+        <div class="k-detail"><div class="k-sub"><p>• 标准成本的制定</p><p>• 差异分析（价格差异、数量差异）</p><p>• 差异的账务处理</p></div></div></div>
+      <div class="k-arrow">▶</div>
+    </div>
+    <div class="knowledge-item" onclick="toggleItem(this)">
+      <div class="k-dot"></div>
+      <div class="k-body"><div class="k-title">第15章 作业成本法</div>
+        <div class="k-detail"><div class="k-sub"><p>• 作业成本法的基本原理</p><p>• 作业成本的计算</p><p>• 作业成本管理</p></div></div></div>
+      <div class="k-arrow">▶</div>
+    </div>
+    <div class="knowledge-item" onclick="toggleItem(this)">
+      <div class="k-dot hot"></div>
+      <div class="k-body"><div class="k-title">第16章 本量利分析 <span class="tag star">核心</span><span class="tag hot">常考</span></div>
+        <div class="k-detail"><div class="k-sub"><p>• 成本性态分析</p><p>• 本量利分析基本模型</p><p>• 保利分析、保本分析</p><p>• 敏感性分析</p></div></div></div>
+      <div class="k-arrow">▶</div>
+    </div>
+    <div class="knowledge-item" onclick="toggleItem(this)">
+      <div class="k-dot hot"></div>
+      <div class="k-body"><div class="k-title">第17章 短期经营决策 <span class="tag hot">常考</span></div>
+        <div class="k-detail"><div class="k-sub"><p>• 生产决策</p><p>• 定价决策</p><p>• 相关成本分析</p></div></div></div>
+      <div class="k-arrow">▶</div>
+    </div>
+    <div class="knowledge-item" onclick="toggleItem(this)">
+      <div class="k-dot"></div>
+      <div class="k-body"><div class="k-title">第18章 全面预算</div>
+        <div class="k-detail"><div class="k-sub"><p>• 全面预算的编制</p><p>• 销售预算、生产预算、现金预算</p></div></div></div>
+      <div class="k-arrow">▶</div>
+    </div>
+    <div class="knowledge-item" onclick="toggleItem(this)">
+      <div class="k-dot"></div>
+      <div class="k-body"><div class="k-title">第19章 责任会计</div>
+        <div class="k-detail"><div class="k-sub"><p>• 责任中心（成本中心、利润中心、投资中心）</p><p>• 内部转移定价</p><p>• 平衡计分卡</p></div></div></div>
+      <div class="k-arrow">▶</div>
+    </div>
+    <div class="knowledge-item" onclick="toggleItem(this)">
+      <div class="k-dot"></div>
+      <div class="k-body"><div class="k-title">第20章 业绩评价</div>
+        <div class="k-detail"><div class="k-sub"><p>• 财务业绩评价</p><p>• 经济增加值（EVA）</p><p>• 平衡计分卡的应用</p></div></div></div>
+      <div class="k-arrow">▶</div>
+    </div>
+    <div class="knowledge-item" onclick="toggleItem(this)">
+      <div class="k-dot new"></div>
+      <div class="k-body"><div class="k-title">第21章 管理会计报告 <span class="tag new">2027变动</span></div>
+        <div class="k-detail"><div class="k-sub"><p>• 管理会计报告概述</p><p>• 管理会计报告的编制与应用</p><p class="mark-new">📌 2027新增：可持续发展指标在管理会计中的应用、ESG成本核算</p></div></div></div>
+      <div class="k-arrow">▶</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ 公司战略与风险管理 ═══════════ -->
+<div class="subject-section" id="sec-strategy">
+  <div class="section-header">
+    <div class="section-icon" style="background:var(--pink)">🎯</div>
+    <h2>公司战略与风险管理</h2>
+    <span class="count">7章</span>
+  </div>
+  <div class="knowledge-group">
+    <div class="knowledge-item" onclick="toggleItem(this)">
+      <div class="k-dot hot"></div>
+      <div class="k-body"><div class="k-title">第1章 战略与战略管理 <span class="tag hot">常考</span></div>
+        <div class="k-detail"><div class="k-sub"><p>• 公司战略的定义与特征</p><p>• 战略管理的过程</p><p>• 战略变革管理</p></div></div></div>
+      <div class="k-arrow">▶</div>
+    </div>
+    <div class="knowledge-item" onclick="toggleItem(this)">
+      <div class="k-dot hot"></div>
+      <div class="k-body"><div class="k-title">第2章 战略分析 <span class="tag star">核心</span><span class="tag hot">常考</span></div>
+        <div class="k-detail"><div class="k-sub"><p>• 外部环境分析（PEST、五力模型、产业生命周期）</p><p>• 内部环境分析（价值链、核心竞争力、波士顿矩阵）</p><p>• SWOT分析</p><p>• 综合战略分析</p></div></div></div>
+      <div class="k-arrow">▶</div>
+    </div>
+    <div class="knowledge-item" onclick="toggleItem(this)">
+      <div class="k-dot hot"></div>
+      <div class="k-body"><div class="k-title">第3章 战略选择 <span class="tag star">核心</span><span class="tag hot">常考</span></div>
+        <div class="k-detail"><div class="k-sub"><p>• 总体战略（发展战略、稳定战略、收缩战略）</p><p>• 业务单位战略（成本领先、差异化、集中化）</p><p>• 职能战略</p><p>• 国际化经营战略</p></div></div></div>
+      <div class="k-arrow">▶</div>
+    </div>
+    <div class="knowledge-item" onclick="toggleItem(this)">
+      <div class="k-dot"></div>
+      <div class="k-body"><div class="k-title">第4章 战略实施</div>
+        <div class="k-detail"><div class="k-sub"><p>• 公司治理</p><p>• 组织结构（M型、H型、矩阵型等）</p><p>• 平衡计分卡</p><p>• 企业文化的类型与作用</p></div></div></div>
+      <div class="k-arrow">▶</div>
+    </div>
+    <div class="knowledge-item" onclick="toggleItem(this)">
+      <div class="k-dot hot"></div>
+      <div class="k-body"><div class="k-title">第5章 风险与风险管理 <span class="tag star">核心</span><span class="tag hot">常考</span></div>
+        <div class="k-detail"><div class="k-sub"><p>• 风险的概念与类型（战略风险、财务风险、市场风险、操作风险等）</p><p>• 风险管理基本流程</p><p>• 风险管理组织体系</p><p>• 风险管理技术与方法（头脑风暴、德尔菲法、蒙特卡洛模拟等）</p></div></div></div>
+      <div class="k-arrow">▶</div>
+    </div>
+    <div class="knowledge-item" onclick="toggleItem(this)">
+      <div class="k-dot hot"></div>
+      <div class="k-body"><div class="k-title">第6章 风险管理框架下的内部控制 <span class="tag hot">常考</span></div>
+        <div class="k-detail"><div class="k-sub"><p>• 内部控制的要素（控制环境、风险评估、控制活动、信息与沟通、监督）</p><p>• 内部控制的应用</p><p>• 内部控制评价</p></div></div></div>
+      <div class="k-arrow">▶</div>
+    </div>
+    <div class="knowledge-item" onclick="toggleItem(this)">
+      <div class="k-dot new"></div>
+      <div class="k-body"><div class="k-title">第7章 公司治理与ESG战略 <span class="tag new">2027新增</span></div>
+        <div class="k-detail"><div class="k-sub"><p class="mark-new">📌 2027年新增/重大调整章节</p><p>• ESG（环境、社会、治理）战略框架</p><p>• 可持续发展战略与企业价值创造</p><p>• ESG风险管理</p><p>• 绿色金融与可持续投资</p><p>• 数字化转型战略</p><p>• 数据安全与隐私保护</p></div></div></div>
+      <div class="k-arrow">▶</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ 综合阶段 ═══════════ -->
+<div class="subject-section" id="sec-comprehensive">
+  <div class="section-header">
+    <div class="section-icon" style="background:var(--indigo)">📋</div>
+    <h2>综合阶段考试</h2>
+    <span class="count">试卷一 + 试卷二</span>
+  </div>
+  <div class="knowledge-group">
+    <div class="knowledge-item" onclick="toggleItem(this)">
+      <div class="k-dot hot"></div>
+      <div class="k-body"><div class="k-title">试卷一 · 会计、审计与税法 <span class="tag star">核心</span><span class="tag hot">常考</span></div>
+        <div class="k-detail"><div class="k-sub"><p>• 职业能力综合测试（会计、审计和税法）</p><p>• 以审计为主线，融合会计与税法知识</p><p>• 考查职业判断能力</p><p>• 案例分析与专业表述</p>
+        <div style="margin-top:8px; font-weight:600; color:var(--text);">重点考查方向：</div>
+        <p>• 收入确认、金融工具、企业合并与合并报表</p><p>• 审计风险评估与应对</p><p>• 增值税与企业所得税综合应用</p><p>• 上市公司信息披露审计</p></div></div></div>
+      <div class="k-arrow">▶</div>
+    </div>
+    <div class="knowledge-item" onclick="toggleItem(this)">
+      <div class="k-dot hot"></div>
+      <div class="k-body"><div class="k-title">试卷二 · 财务成本管理、公司战略与经济法 <span class="tag star">核心</span><span class="tag hot">常考</span></div>
+        <div class="k-detail"><div class="k-sub"><p>• 职业能力综合测试（财务成本管理、公司战略与经济法）</p><p>• 以公司战略为主线，融合财管与经济法知识</p><p>• 考查综合分析与决策能力</p>
+        <div style="margin-top:8px; font-weight:600; color:var(--text);">重点考查方向：</div>
+        <p>• 企业战略分析与选择</p><p>• 投融资决策与企业估值</p><p>• 风险管理与内部控制</p><p>• 资本市场法律实务</p></div></div></div>
+      <div class="k-arrow">▶</div>
+    </div>
+    <div class="knowledge-item" onclick="toggleItem(this)">
+      <div class="k-dot new"></div>
+      <div class="k-body"><div class="k-title">综合阶段·2027新趋势 <span class="tag new">2027新增</span></div>
+        <div class="k-detail"><div class="k-sub"><p class="mark-new">📌 2027年综合阶段重点关注：</p><p>• ESG与可持续发展在各科目中的融合</p><p>• 数字化转型对传统审计与财务管理的影响</p><p>• 数据安全与跨境数据流动的法律合规</p><p>• 绿色金融与碳交易相关会计处理</p><p>• 人工智能在审计与管理会计中的应用</p></div></div></div>
+      <div class="k-arrow">▶</div>
+    </div>
+  </div>
+</div>
+
+</div><!-- end content -->
+
+<!-- Footer -->
+<div class="footer">
+  <p>数据来源：中国注册会计师协会 · 2026年考试大纲</p>
+  <p>基于2026大纲整理，2027年正式大纲发布后将更新</p>
+  <p style="margin-top:8px; color:var(--text2);">✨ 表示2027年新增/重大变动 · 🔥 表示常考重点 · ⭐ 表示核心考点</p>
+</div>
+
+<!-- Scroll to top -->
+<button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+// Tab switching
+function switchTab(id) {
+  document.querySelectorAll('.subject-section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('sec-' + id).classList.add('active');
+  // Find and activate tab button
+  document.querySelectorAll('.tab-btn').forEach(b => {
+    const tabMap = {
+      'overview':'总览','accounting':'会计','audit':'审计','tax':'税法',
+      'law':'经济法','fm':'财务成本管理','strategy':'公司战略','comprehensive':'综合阶段'
+    };
+    if (b.textContent === tabMap[id]) b.classList.add('active');
+  });
+  // Scroll to top of content
+  document.getElementById('header').scrollIntoView({behavior:'smooth'});
+}
+
+// Expand/collapse
+function toggleItem(el) {
+  el.classList.toggle('expanded');
+}
+
+// Scroll to top button
+window.addEventListener('scroll', () => {
+  const btn = document.getElementById('scrollTop');
+  if (window.scrollY > 400) btn.classList.add('show');
+  else btn.classList.remove('show');
+});
+
+// Search
+function doSearch(query) {
+  // Show all sections when searching
+  const allSections = document.querySelectorAll('.subject-section');
+  const allItems = document.querySelectorAll('.knowledge-item');
+  const allGroups = document.querySelectorAll('.knowledge-group');
+
+  if (!query.trim()) {
+    // Restore normal view
+    allSections.forEach(s => s.style.display = '');
+    allSections.forEach(s => s.classList.remove('active'));
+    document.getElementById('sec-overview').classList.add('active');
+    allItems.forEach(item => {
+      item.style.display = '';
+      // Remove marks
+      item.querySelectorAll('mark').forEach(m => {
+        m.replaceWith(document.createTextNode(m.textContent));
+      });
+    });
+    return;
+  }
+
+  // Show all sections
+  allSections.forEach(s => { s.style.display = 'block'; s.classList.add('active'); });
+
+  const lowerQ = query.toLowerCase();
+  allItems.forEach(item => {
+    const text = item.textContent.toLowerCase();
+    if (text.includes(lowerQ)) {
+      item.style.display = '';
+      item.classList.add('expanded');
+      // Highlight
+      const body = item.querySelector('.k-body');
+      const title = body.querySelector('.k-title');
+      const detail = body.querySelector('.k-detail');
+      [title, detail].forEach(el => {
+        if (!el) return;
+        const inner = el.innerHTML;
+        // Remove existing marks first
+        let cleaned = inner.replace(/<mark>/g,'').replace(/<\/mark>/g,'');
+        const regex = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')})`, 'gi');
+        el.innerHTML = cleaned.replace(regex, '<mark>$1</mark>');
+      });
+    } else {
+      item.style.display = 'none';
+    }
+  });
+
+  // Hide empty groups
+  allGroups.forEach(g => {
+    const visible = g.querySelectorAll('.knowledge-item:not([style*="display: none"])');
+    g.style.display = visible.length > 0 ? '' : 'none';
+  });
+}
+</script>
+
+</body>
+</html>
